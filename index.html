@@ -49,16 +49,17 @@
     color: #744210; font-size: 0.98rem;
   }
   .blogger-notice strong { color: #975a16; }
+  .blogger-notice ul { margin: 8px 0 0 20px; }
 
   #mainContent { display: none; }
 
-  /* Navegación de actividades */
+  /* Tabs */
   .tabs {
     display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;
     border-bottom: 3px solid #e2e8f0; padding-bottom: 10px;
   }
   .tab-btn {
-    padding: 10px 20px; font-size: 0.95rem; font-weight: 600;
+    padding: 10px 18px; font-size: 0.95rem; font-weight: 600;
     background: #edf2f7; color: #4a5568; border: none;
     border-radius: 10px; cursor: pointer; transition: all 0.3s;
   }
@@ -76,6 +77,12 @@
     border-bottom: 2px dashed #bee3f8; padding-bottom: 8px;
   }
   .instruction { color: #4a5568; margin-bottom: 12px; }
+
+  .note-box {
+    background: #fffaf0; border-left: 5px solid #ed8936;
+    padding: 12px 16px; border-radius: 8px; margin-bottom: 15px;
+    color: #7b341e; font-size: 0.95rem;
+  }
 
   .question {
     background: #ffffff; border-radius: 10px; padding: 16px 18px;
@@ -108,24 +115,20 @@
 
   /* Memorama */
   .memo-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-top: 15px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 12px; margin-top: 15px;
   }
   .memo-card {
-    background: #2b6cb0; color: white;
-    height: 90px; border-radius: 12px; cursor: pointer;
+    background: #2b6cb0; color: white; height: 90px;
+    border-radius: 12px; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     font-size: 1rem; font-weight: 600; text-align: center;
-    padding: 8px; transition: all 0.3s;
-    user-select: none;
+    padding: 8px; transition: all 0.3s; user-select: none;
     box-shadow: 0 3px 8px rgba(0,0,0,0.1);
   }
   .memo-card:hover { transform: translateY(-2px); box-shadow: 0 5px 14px rgba(0,0,0,0.15); }
   .memo-card.flipped {
-    background: #ffffff; color: #2d3748;
-    border: 2px solid #2b6cb0;
+    background: #ffffff; color: #2d3748; border: 2px solid #2b6cb0;
   }
   .memo-card.matched {
     background: #38a169; color: white; cursor: default;
@@ -142,6 +145,20 @@
     transition: background 0.3s;
   }
   .memo-reset:hover { background: #c53030; }
+
+  /* Actividad 4 — dibujos */
+  .draw-question {
+    background: #ffffff; border-radius: 10px; padding: 16px 18px;
+    margin-bottom: 14px; border: 2px dashed #4299e1;
+  }
+  .draw-question .q-num {
+    font-weight: 700; color: #2b6cb0; margin-right: 6px;
+  }
+  .draw-hint {
+    background: #ebf8ff; padding: 10px 14px; border-radius: 8px;
+    margin-top: 10px; color: #2c5282; font-size: 0.93rem;
+    font-style: italic;
+  }
 
   /* Botones */
   .btn {
@@ -194,21 +211,25 @@
   <div id="mainContent">
 
     <div class="blogger-notice">
-      📝 <strong>Instrucciones importantes:</strong><br>
-      1. Contesta este ejercicio en el <strong>blog de Blogger</strong>.<br>
-      2. Escribe tus respuestas con <strong>tinta azul</strong> en tu cuaderno.<br>
-      3. Usa audífonos 🎧 para las actividades de audio.<br>
-      4. Al terminar las 3 actividades, presiona <strong>"VER RESULTADOS"</strong>.
+      📝 <strong>Instrucciones importantes:</strong>
+      <ul>
+        <li>Contesta este ejercicio en el <strong>blog de Blogger</strong>.</li>
+        <li>Escribe tus respuestas con <strong>tinta azul</strong> en tu cuaderno.</li>
+        <li>En la <strong>Actividad 1</strong>, escribe en tu cuaderno <strong>lo que escuchas</strong> y luego la <strong>respuesta correcta</strong>.</li>
+        <li>En la <strong>Actividad 4</strong>, escucha cada audio y <strong>dibuja</strong> en tu cuaderno lo que entiendas (5 dibujos).</li>
+        <li>Al terminar las actividades, presiona <strong>"VER RESULTADOS"</strong>.</li>
+      </ul>
     </div>
 
     <h1>📘 SESIÓN 3 — INTEGRATION</h1>
-    <p class="subtitle">Would · Past Participles · Listening</p>
+    <p class="subtitle">Would · Past Participles · Listening & Drawing</p>
 
     <!-- TABS -->
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab(1, this)">🎧 Actividad 1</button>
       <button class="tab-btn" onclick="switchTab(2, this)">🎴 Actividad 2 — Memorama</button>
       <button class="tab-btn" onclick="switchTab(3, this)">🎧 Actividad 3</button>
+      <button class="tab-btn" onclick="switchTab(4, this)">🎨 Actividad 4 — Listen & Draw</button>
     </div>
 
     <!-- ===== ACTIVIDAD 1 ===== -->
@@ -216,6 +237,9 @@
       <div class="section-box">
         <h2>🎧 ACTIVIDAD 1 — Listen & Choose the Past</h2>
         <p class="instruction">Escucha la oración en <strong>present simple</strong> y elige la mejor opción en <strong>pasado</strong>. (15 ejercicios)</p>
+        <div class="note-box">
+          ✏️ <strong>En tu cuaderno:</strong> escribe primero <em>lo que escuchas</em> (en inglés) y después la <em>respuesta correcta</em> que elegiste.
+        </div>
         <div id="actividad1"></div>
       </div>
     </div>
@@ -237,6 +261,18 @@
         <h2>🎧 ACTIVIDAD 3 — Listen (Spanish) & Choose the Best Option</h2>
         <p class="instruction">Escucha la oración en <strong>español</strong> con <em>Would</em> y elige la mejor opción en <strong>inglés</strong>. (15 ejercicios)</p>
         <div id="actividad3"></div>
+      </div>
+    </div>
+
+    <!-- ===== ACTIVIDAD 4 ===== -->
+    <div id="tab4" class="tab-content">
+      <div class="section-box">
+        <h2>🎨 ACTIVIDAD 4 — Listen & Draw</h2>
+        <p class="instruction">Escucha cada oración en <strong>past simple</strong> y <strong>dibuja</strong> en tu cuaderno lo que entiendas. Son <strong>5 audios</strong> = <strong>5 dibujos</strong>.</p>
+        <div class="note-box">
+          ✏️ <strong>En tu cuaderno:</strong> para cada audio, escribe el número (1 al 5) y haz un <strong>dibujo</strong> que represente lo que escuchaste. No necesitas escribir la oración, solo dibujar.
+        </div>
+        <div id="actividad4"></div>
       </div>
     </div>
 
@@ -426,7 +462,7 @@ function flipCard(idx) {
 }
 
 /* ============================================================
-   ACTIVIDAD 3 — Oración en español (audio) → elegir mejor opción en inglés
+   ACTIVIDAD 3 — Español (audio) → elegir mejor opción en inglés
    ============================================================ */
 const ACTIVIDAD3 = [
   { spanish: "¿Te gustaría ver una película esta noche?", correct: "Would you like to watch a movie tonight?", wrong: ["Would you tell me to watch a movie tonight?", "Would you like watch a movie tonight?", "Would you like watching a movie tonight?"] },
@@ -444,6 +480,17 @@ const ACTIVIDAD3 = [
   { spanish: "¿Te gustaría probar comida mexicana?", correct: "Would you like to try Mexican food?", wrong: ["Would you tell me to try Mexican food?", "Would you like try Mexican food?", "Would you like trying Mexican food?"] },
   { spanish: "¿Me dirías cómo llegar al aeropuerto?", correct: "Would you tell me how to get to the airport?", wrong: ["Would you like to tell me how to get to the airport?", "Would you tell me where is the airport?", "Would you tell how to get to the airport?"] },
   { spanish: "¿Te gustaría ir al cine conmigo?", correct: "Would you like to go to the cinema with me?", wrong: ["Would you tell me to go to the cinema with me?", "Would you like go to the cinema with me?", "Would you like going to the cinema with me?"] }
+];
+
+/* ============================================================
+   ACTIVIDAD 4 — Listen & Draw (5 audios en past simple)
+   ============================================================ */
+const ACTIVIDAD4 = [
+  { audio: "Yesterday, I played soccer with my friends in the park.", hint: "Un niño jugando fútbol con amigos en el parque." },
+  { audio: "She ate a big pizza last night at the restaurant.", hint: "Una persona comiendo pizza en un restaurante." },
+  { audio: "They went to the beach and swam in the ocean.", hint: "Personas en la playa nadando en el mar." },
+  { audio: "He bought a new red car last week.", hint: "Un auto rojo nuevo." },
+  { audio: "I wrote a letter to my grandmother yesterday.", hint: "Una persona escribiendo una carta." }
 ];
 
 /* ============================================================
@@ -495,8 +542,24 @@ function renderActividad3() {
   }).join('');
 }
 
+function renderActividad4() {
+  const c = document.getElementById('actividad4');
+  c.innerHTML = ACTIVIDAD4.map((q, i) => `
+    <div class="draw-question">
+      <span class="q-num">${i + 1}.</span>
+      <button class="audio-btn" onclick="speak('${q.audio.replace(/'/g, "\\'")}', this)">
+        🔊 Escuchar audio ${i + 1}
+      </button>
+      <div class="draw-hint">
+        🎨 <strong>Dibuja en tu cuaderno</strong> lo que entiendas. (Pista opcional: ${q.hint})
+      </div>
+    </div>
+  `).join('');
+}
+
 renderActividad1();
 renderActividad3();
+renderActividad4();
 initMemorama();
 
 /* ============================================================
@@ -504,8 +567,7 @@ initMemorama();
    ============================================================ */
 function normalize(str) {
   return (str || '')
-    .toLowerCase()
-    .trim()
+    .toLowerCase().trim()
     .replace(/[.,!?;:¿¡"']/g, '')
     .replace(/\s+/g, ' ');
 }
@@ -516,24 +578,21 @@ function normalize(str) {
 function showResults() {
   let score1 = 0, score3 = 0;
 
-  // Actividad 1
   ACTIVIDAD1.forEach((q, i) => {
     const sel = document.querySelector(`input[name="a1_${i}"]:checked`);
     if (sel && normalize(sel.value) === normalize(q.correct)) score1++;
   });
 
-  // Actividad 3
   ACTIVIDAD3.forEach((q, i) => {
     const sel = document.querySelector(`input[name="a3_${i}"]:checked`);
     if (sel && normalize(sel.value) === normalize(q.correct)) score3++;
   });
 
-  // Actividad 2 — Memorama
-  const memoScore = matched; // 0 a 12
+  const memoScore = matched;
   const memoPct = Math.round((matched / MEMO_PAIRS.length) * 100);
 
   const total = score1 + score3 + memoScore;
-  const max = ACTIVIDAD1.length + ACTIVIDAD3.length + MEMO_PAIRS.length; // 15 + 15 + 12 = 42
+  const max = ACTIVIDAD1.length + ACTIVIDAD3.length + MEMO_PAIRS.length;
   const pct = Math.round((total / max) * 100);
 
   let msg = '';
@@ -546,8 +605,12 @@ function showResults() {
     <div class="score-item"><span>🎧 Actividad 1 (Present → Past)</span><span>${score1} / 15</span></div>
     <div class="score-item"><span>🎴 Actividad 2 (Memorama)</span><span>${memoScore} / 12 (${memoPct}%)</span></div>
     <div class="score-item"><span>🎧 Actividad 3 (Would ES → EN)</span><span>${score3} / 15</span></div>
-    <div class="score-item"><span>TOTAL</span><span>${total} / ${max} (${pct}%)</span></div>
+    <div class="score-item"><span>🎨 Actividad 4 (Listen & Draw)</span><span>Revisión en cuaderno</span></div>
+    <div class="score-item"><span>TOTAL (act. calificables)</span><span>${total} / ${max} (${pct}%)</span></div>
     <div class="feedback">${msg}</div>
+    <p style="margin-top:12px; color:#718096; font-size:0.9rem; text-align:center;">
+      ⚠️ La Actividad 4 se revisa en el cuaderno (5 dibujos).
+    </p>
   `;
 
   document.getElementById('mainContent').style.display = 'none';
