@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sesión 3 — Integration: Would + Past Participles</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    color: #1a202c;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  .container {
+    max-width: 950px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    padding: 30px 40px;
+  }
+  h1 { text-align: center; color: #2b6cb0; font-size: 1.8rem; margin-bottom: 8px; }
+  .subtitle { text-align: center; color: #718096; font-size: 1rem; margin-bottom: 25px; }
+
+  /* Login */
+  #loginScreen { text-align: center; padding: 40px 20px; }
+  #loginScreen h2 { color: #2b6cb0; margin-bottom: 15px; }
+  #loginScreen p { color: #4a5568; margin-bottom: 20px; }
+  #accessInput {
+    font-size: 2rem; text-align: center; letter-spacing: 12px;
+    width: 220px; padding: 12px; border: 3px solid #cbd5e0;
+    border-radius: 12px; outline: none; transition: border 0.3s;
+  }
+  #accessInput:focus { border-color: #2b6cb0; }
+  #loginBtn {
+    display: block; margin: 20px auto 0; padding: 14px 50px;
+    font-size: 1.1rem; background: #2b6cb0; color: white;
+    border: none; border-radius: 12px; cursor: pointer;
+    transition: background 0.3s, transform 0.1s;
+  }
+  #loginBtn:hover { background: #2c5282; transform: scale(1.02); }
+  #loginError { color: #e53e3e; margin-top: 15px; font-weight: 600; display: none; }
+
+  .blogger-notice {
+    background: #fefcbf; border-left: 6px solid #d69e2e;
+    padding: 16px 20px; border-radius: 10px; margin-bottom: 25px;
+    color: #744210; font-size: 0.98rem;
+  }
+  .blogger-notice strong { color: #975a16; }
+
+  #mainContent { display: none; }
+
+  /* Navegación de actividades */
+  .tabs {
+    display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;
+    border-bottom: 3px solid #e2e8f0; padding-bottom: 10px;
+  }
+  .tab-btn {
+    padding: 10px 20px; font-size: 0.95rem; font-weight: 600;
+    background: #edf2f7; color: #4a5568; border: none;
+    border-radius: 10px; cursor: pointer; transition: all 0.3s;
+  }
+  .tab-btn:hover { background: #bee3f8; color: #2c5282; }
+  .tab-btn.active { background: #2b6cb0; color: white; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .section-box {
+    background: #f7fafc; border: 2px solid #e2e8f0;
+    border-radius: 14px; padding: 22px 26px; margin-bottom: 25px;
+  }
+  .section-box h2 {
+    color: #2b6cb0; font-size: 1.25rem; margin-bottom: 12px;
+    border-bottom: 2px dashed #bee3f8; padding-bottom: 8px;
+  }
+  .instruction { color: #4a5568; margin-bottom: 12px; }
+
+  .question {
+    background: #ffffff; border-radius: 10px; padding: 16px 18px;
+    margin-bottom: 14px; border: 1px solid #e2e8f0;
+  }
+  .question .q-num {
+    font-weight: 700; color: #2b6cb0; margin-right: 6px;
+  }
+  .audio-btn {
+    background: #4299e1; color: white; border: none;
+    padding: 8px 16px; border-radius: 8px; cursor: pointer;
+    font-size: 0.9rem; font-weight: 600; margin: 6px 6px 10px 0;
+    transition: background 0.3s;
+  }
+  .audio-btn:hover { background: #3182ce; }
+  .audio-btn:disabled { background: #a0aec0; cursor: not-allowed; }
+
+  .options {
+    display: flex; flex-direction: column; gap: 8px; margin-top: 8px;
+  }
+  .options label {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px; border-radius: 8px; cursor: pointer;
+    background: #f7fafc; border: 1px solid #e2e8f0;
+    transition: background 0.2s, border 0.2s;
+    font-size: 0.98rem;
+  }
+  .options label:hover { background: #ebf8ff; border-color: #bee3f8; }
+  .options input[type="radio"] { accent-color: #2b6cb0; width: 18px; height: 18px; cursor: pointer; }
+
+  /* Memorama */
+  .memo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 15px;
+  }
+  .memo-card {
+    background: #2b6cb0; color: white;
+    height: 90px; border-radius: 12px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: 600; text-align: center;
+    padding: 8px; transition: all 0.3s;
+    user-select: none;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  }
+  .memo-card:hover { transform: translateY(-2px); box-shadow: 0 5px 14px rgba(0,0,0,0.15); }
+  .memo-card.flipped {
+    background: #ffffff; color: #2d3748;
+    border: 2px solid #2b6cb0;
+  }
+  .memo-card.matched {
+    background: #38a169; color: white; cursor: default;
+    border: 2px solid #2f855a;
+  }
+  .memo-status {
+    text-align: center; margin-top: 15px; font-weight: 600;
+    color: #4a5568; font-size: 1rem;
+  }
+  .memo-reset {
+    display: block; margin: 15px auto 0; padding: 10px 25px;
+    background: #e53e3e; color: white; border: none;
+    border-radius: 10px; cursor: pointer; font-weight: 600;
+    transition: background 0.3s;
+  }
+  .memo-reset:hover { background: #c53030; }
+
+  /* Botones */
+  .btn {
+    display: inline-block; padding: 12px 35px; font-size: 1rem;
+    border: none; border-radius: 10px; cursor: pointer;
+    transition: background 0.3s, transform 0.1s; font-weight: 600;
+  }
+  .btn-primary { background: #2b6cb0; color: white; }
+  .btn-primary:hover { background: #2c5282; transform: scale(1.02); }
+  .btn-success { background: #38a169; color: white; }
+  .btn-success:hover { background: #2f855a; transform: scale(1.02); }
+  .btn-center { text-align: center; margin: 25px 0 10px; }
+
+  /* Resultados */
+  #resultsScreen { display: none; text-align: center; padding: 30px 20px; }
+  #resultsScreen h2 { color: #2b6cb0; margin-bottom: 15px; }
+  .score-box {
+    background: #ebf8ff; border-radius: 14px; padding: 25px;
+    margin: 20px auto; max-width: 550px; text-align: left;
+  }
+  .score-item {
+    display: flex; justify-content: space-between; padding: 8px 0;
+    border-bottom: 1px solid #bee3f8; font-size: 1.05rem;
+  }
+  .score-item:last-child { border-bottom: none; font-weight: 700; color: #2b6cb0; font-size: 1.15rem; }
+  .feedback { margin-top: 15px; font-weight: 600; font-size: 1.1rem; text-align: center; }
+
+  @media (max-width: 600px) {
+    .container { padding: 20px 18px; }
+    h1 { font-size: 1.4rem; }
+    .memo-grid { grid-template-columns: repeat(3, 1fr); }
+    .memo-card { height: 75px; font-size: 0.85rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ============ PANTALLA DE ACCESO ============ -->
+  <div id="loginScreen">
+    <h1>🔐 Sesión 3 — Integration</h1>
+    <p class="subtitle">Would + Past Participles</p>
+    <p>Ingresa el código de acceso de 4 dígitos:</p>
+    <input type="password" id="accessInput" maxlength="4" inputmode="numeric" placeholder="••••">
+    <button id="loginBtn" onclick="checkAccess()">ENTRAR</button>
+    <p id="loginError">❌ Código incorrecto. Intenta de nuevo.</p>
+  </div>
+
+  <!-- ============ CONTENIDO PRINCIPAL ============ -->
+  <div id="mainContent">
+
+    <div class="blogger-notice">
+      📝 <strong>Instrucciones importantes:</strong><br>
+      1. Contesta este ejercicio en el <strong>blog de Blogger</strong>.<br>
+      2. Escribe tus respuestas con <strong>tinta azul</strong> en tu cuaderno.<br>
+      3. Usa audífonos 🎧 para las actividades de audio.<br>
+      4. Al terminar las 3 actividades, presiona <strong>"VER RESULTADOS"</strong>.
+    </div>
+
+    <h1>📘 SESIÓN 3 — INTEGRATION</h1>
+    <p class="subtitle">Would · Past Participles · Listening</p>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(1, this)">🎧 Actividad 1</button>
+      <button class="tab-btn" onclick="switchTab(2, this)">🎴 Actividad 2 — Memorama</button>
+      <button class="tab-btn" onclick="switchTab(3, this)">🎧 Actividad 3</button>
+    </div>
+
+    <!-- ===== ACTIVIDAD 1 ===== -->
+    <div id="tab1" class="tab-content active">
+      <div class="section-box">
+        <h2>🎧 ACTIVIDAD 1 — Listen & Choose the Past</h2>
+        <p class="instruction">Escucha la oración en <strong>present simple</strong> y elige la mejor opción en <strong>pasado</strong>. (15 ejercicios)</p>
+        <div id="actividad1"></div>
+      </div>
+    </div>
+
+    <!-- ===== ACTIVIDAD 2 ===== -->
+    <div id="tab2" class="tab-content">
+      <div class="section-box">
+        <h2>🎴 ACTIVIDAD 2 — Memorama de Verbos</h2>
+        <p class="instruction">Empareja cada <strong>infinitivo</strong> con su <strong>past participle</strong>. Haz clic en dos cartas para encontrar la pareja.</p>
+        <div class="memo-grid" id="memoGrid"></div>
+        <p class="memo-status" id="memoStatus">Parejas encontradas: 0 / 12</p>
+        <button class="memo-reset" onclick="initMemorama()">🔄 Reiniciar memorama</button>
+      </div>
+    </div>
+
+    <!-- ===== ACTIVIDAD 3 ===== -->
+    <div id="tab3" class="tab-content">
+      <div class="section-box">
+        <h2>🎧 ACTIVIDAD 3 — Listen (Spanish) & Choose the Best Option</h2>
+        <p class="instruction">Escucha la oración en <strong>español</strong> con <em>Would</em> y elige la mejor opción en <strong>inglés</strong>. (15 ejercicios)</p>
+        <div id="actividad3"></div>
+      </div>
+    </div>
+
+    <!-- BOTÓN RESULTADOS -->
+    <div class="btn-center">
+      <button class="btn btn-success" onclick="showResults()">✅ VER RESULTADOS</button>
+    </div>
+
+  </div>
+
+  <!-- ============ PANTALLA DE RESULTADOS ============ -->
+  <div id="resultsScreen">
+    <h2>🏆 Resultados — Sesión 3</h2>
+    <div class="score-box" id="scoreBox"></div>
+    <div class="btn-center">
+      <button class="btn btn-primary" onclick="location.reload()">🔄 Volver al inicio</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   CÓDIGO DE ACCESO
+   ============================================================ */
+const ACCESS_CODE = "4070";
+let attempts = 0;
+
+function checkAccess() {
+  const input = document.getElementById('accessInput').value.trim();
+  const error = document.getElementById('loginError');
+  if (input === ACCESS_CODE) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+  } else {
+    attempts++;
+    error.style.display = 'block';
+    error.textContent = `❌ Código incorrecto. Intento ${attempts}. Intenta de nuevo.`;
+    document.getElementById('accessInput').value = '';
+    document.getElementById('accessInput').focus();
+  }
+}
+document.getElementById('accessInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkAccess();
+});
+
+/* ============================================================
+   TABS
+   ============================================================ */
+function switchTab(num, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab' + num).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ============================================================
+   WEB SPEECH API
+   ============================================================ */
+function speak(text, btnElement, lang = 'en-US') {
+  if (!('speechSynthesis' in window)) {
+    alert('Tu navegador no soporta síntesis de voz. Usa Chrome, Edge o Safari.');
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = lang;
+  utter.rate = 0.85;
+  if (btnElement) {
+    btnElement.disabled = true;
+    const original = btnElement.textContent;
+    utter.onend = () => {
+      btnElement.disabled = false;
+      btnElement.textContent = original;
+    };
+  }
+  window.speechSynthesis.speak(utter);
+}
+
+/* ============================================================
+   ACTIVIDAD 1 — Present (audio) → elegir pasado correcto (4 opciones)
+   ============================================================ */
+const ACTIVIDAD1 = [
+  { present: "I eat breakfast at 7:00 every morning.", correct: "I ate breakfast at 7:00 this morning.", wrong: ["I eaten breakfast at 7:00 this morning.", "I eating breakfast at 7:00 this morning.", "I eats breakfast at 7:00 this morning."] },
+  { present: "She goes to school by bus.", correct: "She went to school by bus.", wrong: ["She gone to school by bus.", "She going to school by bus.", "She goed to school by bus."] },
+  { present: "They write emails every day.", correct: "They wrote emails yesterday.", wrong: ["They written emails yesterday.", "They writed emails yesterday.", "They writing emails yesterday."] },
+  { present: "He takes the train at 8:00.", correct: "He took the train at 8:00.", wrong: ["He taken the train at 8:00.", "He taked the train at 8:00.", "He taking the train at 8:00."] },
+  { present: "We see our friends on weekends.", correct: "We saw our friends last weekend.", wrong: ["We seen our friends last weekend.", "We seed our friends last weekend.", "We seeing our friends last weekend."] },
+  { present: "I drink coffee in the morning.", correct: "I drank coffee this morning.", wrong: ["I drunk coffee this morning.", "I drinked coffee this morning.", "I drinking coffee this morning."] },
+  { present: "She gives presents on birthdays.", correct: "She gave presents on her birthday.", wrong: ["She given presents on her birthday.", "She gived presents on her birthday.", "She giving presents on her birthday."] },
+  { present: "They buy groceries at the supermarket.", correct: "They bought groceries yesterday.", wrong: ["They boughten groceries yesterday.", "They buyed groceries yesterday.", "They buying groceries yesterday."] },
+  { present: "He makes dinner every night.", correct: "He made dinner last night.", wrong: ["He maked dinner last night.", "He maken dinner last night.", "He making dinner last night."] },
+  { present: "I play soccer after school.", correct: "I played soccer yesterday.", wrong: ["I plaied soccer yesterday.", "I playd soccer yesterday.", "I playing soccer yesterday."] },
+  { present: "She studies English every day.", correct: "She studied English last week.", wrong: ["She studyed English last week.", "She studed English last week.", "She studying English last week."] },
+  { present: "We watch movies on Fridays.", correct: "We watched a movie last Friday.", wrong: ["We watchd a movie last Friday.", "We watchied a movie last Friday.", "We watching a movie last Friday."] },
+  { present: "He stops at the red light.", correct: "He stopped at the red light.", wrong: ["He stopt at the red light.", "He stoped at the red light.", "He stopping at the red light."] },
+  { present: "They carry heavy boxes.", correct: "They carried heavy boxes.", wrong: ["They carryed heavy boxes.", "They carred heavy boxes.", "They carrying heavy boxes."] },
+  { present: "I go to the gym every day.", correct: "I went to the gym yesterday.", wrong: ["I gone to the gym yesterday.", "I goed to the gym yesterday.", "I going to the gym yesterday."] }
+];
+
+/* ============================================================
+   ACTIVIDAD 2 — Memorama (12 pares)
+   ============================================================ */
+const MEMO_PAIRS = [
+  { inf: "go", part: "gone" },
+  { inf: "eat", part: "eaten" },
+  { inf: "write", part: "written" },
+  { inf: "take", part: "taken" },
+  { inf: "see", part: "seen" },
+  { inf: "drink", part: "drunk" },
+  { inf: "give", part: "given" },
+  { inf: "buy", part: "bought" },
+  { inf: "make", part: "made" },
+  { inf: "play", part: "played" },
+  { inf: "study", part: "studied" },
+  { inf: "watch", part: "watched" }
+];
+
+let memoCards = [];
+let flipped = [];
+let matched = 0;
+let lockBoard = false;
+
+function shuffleArr(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function initMemorama() {
+  const grid = document.getElementById('memoGrid');
+  memoCards = [];
+  MEMO_PAIRS.forEach((p, i) => {
+    memoCards.push({ pairId: i, label: p.inf, type: 'inf' });
+    memoCards.push({ pairId: i, label: p.part, type: 'part' });
+  });
+  memoCards = shuffleArr(memoCards);
+  flipped = [];
+  matched = 0;
+  lockBoard = false;
+  document.getElementById('memoStatus').textContent = `Parejas encontradas: 0 / ${MEMO_PAIRS.length}`;
+  grid.innerHTML = memoCards.map((c, idx) => `
+    <div class="memo-card" data-idx="${idx}" data-pair="${c.pairId}" onclick="flipCard(${idx})">
+      <span class="memo-back">?</span>
+    </div>
+  `).join('');
+}
+
+function flipCard(idx) {
+  if (lockBoard) return;
+  const card = document.querySelector(`.memo-card[data-idx="${idx}"]`);
+  if (!card || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+  const data = memoCards[idx];
+  card.textContent = data.label;
+  card.classList.add('flipped');
+  flipped.push({ idx, card, data });
+
+  if (flipped.length === 2) {
+    lockBoard = true;
+    const [a, b] = flipped;
+    if (a.data.pairId === b.data.pairId && a.data.type !== b.data.type) {
+      setTimeout(() => {
+        a.card.classList.add('matched');
+        b.card.classList.add('matched');
+        matched++;
+        document.getElementById('memoStatus').textContent = `Parejas encontradas: ${matched} / ${MEMO_PAIRS.length}`;
+        flipped = [];
+        lockBoard = false;
+        if (matched === MEMO_PAIRS.length) {
+          document.getElementById('memoStatus').textContent = '🎉 ¡Felicidades! Completaste el memorama.';
+        }
+      }, 500);
+    } else {
+      setTimeout(() => {
+        a.card.textContent = '?';
+        b.card.textContent = '?';
+        a.card.classList.remove('flipped');
+        b.card.classList.remove('flipped');
+        flipped = [];
+        lockBoard = false;
+      }, 900);
+    }
+  }
+}
+
+/* ============================================================
+   ACTIVIDAD 3 — Oración en español (audio) → elegir mejor opción en inglés
+   ============================================================ */
+const ACTIVIDAD3 = [
+  { spanish: "¿Te gustaría ver una película esta noche?", correct: "Would you like to watch a movie tonight?", wrong: ["Would you tell me to watch a movie tonight?", "Would you like watch a movie tonight?", "Would you like watching a movie tonight?"] },
+  { spanish: "¿Me dirías cómo llegar a la estación?", correct: "Would you tell me how to get to the station?", wrong: ["Would you like to tell me how to get to the station?", "Would you tell me where the station is going?", "Would you tell how to get to the station?"] },
+  { spanish: "¿Te gustaría cenar con nosotros?", correct: "Would you like to have dinner with us?", wrong: ["Would you tell me to have dinner with us?", "Would you like have dinner with us?", "Would you like having dinner with us?"] },
+  { spanish: "¿Me dirías dónde está el baño?", correct: "Would you tell me where the bathroom is?", wrong: ["Would you like to tell me where the bathroom is?", "Would you tell me where is the bathroom go?", "Would you tell where the bathroom is?"] },
+  { spanish: "¿Te gustaría ir a la playa?", correct: "Would you like to go to the beach?", wrong: ["Would you tell me to go to the beach?", "Would you like go to the beach?", "Would you like going to the beach?"] },
+  { spanish: "¿Me dirías cómo usar esta computadora?", correct: "Would you tell me how to use this computer?", wrong: ["Would you like to tell me how to use this computer?", "Would you tell me how use this computer?", "Would you tell how to use this computer?"] },
+  { spanish: "¿Te gustaría jugar tenis conmigo?", correct: "Would you like to play tennis with me?", wrong: ["Would you tell me to play tennis with me?", "Would you like play tennis with me?", "Would you like playing tennis with me?"] },
+  { spanish: "¿Me dirías cómo llegar al museo?", correct: "Would you tell me how to get to the museum?", wrong: ["Would you like to tell me how to get to the museum?", "Would you tell me where is the museum?", "Would you tell how to get to the museum?"] },
+  { spanish: "¿Te gustaría tomar un café?", correct: "Would you like to have a cup of coffee?", wrong: ["Would you tell me to have a cup of coffee?", "Would you like have a cup of coffee?", "Would you like having a cup of coffee?"] },
+  { spanish: "¿Me dirías cómo abrir esta caja?", correct: "Would you tell me how to open this box?", wrong: ["Would you like to tell me how to open this box?", "Would you tell me how open this box?", "Would you tell how to open this box?"] },
+  { spanish: "¿Te gustaría venir a mi fiesta?", correct: "Would you like to come to my party?", wrong: ["Would you tell me to come to my party?", "Would you like come to my party?", "Would you like coming to my party?"] },
+  { spanish: "¿Me dirías dónde está la biblioteca?", correct: "Would you tell me where the library is?", wrong: ["Would you like to tell me where the library is?", "Would you tell me where is the library go?", "Would you tell where the library is?"] },
+  { spanish: "¿Te gustaría probar comida mexicana?", correct: "Would you like to try Mexican food?", wrong: ["Would you tell me to try Mexican food?", "Would you like try Mexican food?", "Would you like trying Mexican food?"] },
+  { spanish: "¿Me dirías cómo llegar al aeropuerto?", correct: "Would you tell me how to get to the airport?", wrong: ["Would you like to tell me how to get to the airport?", "Would you tell me where is the airport?", "Would you tell how to get to the airport?"] },
+  { spanish: "¿Te gustaría ir al cine conmigo?", correct: "Would you like to go to the cinema with me?", wrong: ["Would you tell me to go to the cinema with me?", "Would you like go to the cinema with me?", "Would you like going to the cinema with me?"] }
+];
+
+/* ============================================================
+   RENDERIZADO
+   ============================================================ */
+function renderActividad1() {
+  const c = document.getElementById('actividad1');
+  c.innerHTML = ACTIVIDAD1.map((q, i) => {
+    const options = shuffleArr([q.correct, ...q.wrong]);
+    return `
+      <div class="question">
+        <span class="q-num">${i + 1}.</span>
+        <button class="audio-btn" onclick="speak('${q.present.replace(/'/g, "\\'")}', this)">
+          🔊 Escuchar oración (present)
+        </button>
+        <div class="options">
+          ${options.map((opt, j) => `
+            <label>
+              <input type="radio" name="a1_${i}" value="${opt.replace(/"/g, '&quot;')}">
+              ${opt}
+            </label>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderActividad3() {
+  const c = document.getElementById('actividad3');
+  c.innerHTML = ACTIVIDAD3.map((q, i) => {
+    const options = shuffleArr([q.correct, ...q.wrong]);
+    return `
+      <div class="question">
+        <span class="q-num">${i + 1}.</span>
+        <button class="audio-btn" onclick="speak('${q.spanish.replace(/'/g, "\\'")}', this, 'es-MX')">
+          🔊 Escuchar oración (español)
+        </button>
+        <div class="options">
+          ${options.map((opt, j) => `
+            <label>
+              <input type="radio" name="a3_${i}" value="${opt.replace(/"/g, '&quot;')}">
+              ${opt}
+            </label>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+renderActividad1();
+renderActividad3();
+initMemorama();
+
+/* ============================================================
+   NORMALIZAR
+   ============================================================ */
+function normalize(str) {
+  return (str || '')
+    .toLowerCase()
+    .trim()
+    .replace(/[.,!?;:¿¡"']/g, '')
+    .replace(/\s+/g, ' ');
+}
+
+/* ============================================================
+   CALIFICAR Y MOSTRAR RESULTADOS
+   ============================================================ */
+function showResults() {
+  let score1 = 0, score3 = 0;
+
+  // Actividad 1
+  ACTIVIDAD1.forEach((q, i) => {
+    const sel = document.querySelector(`input[name="a1_${i}"]:checked`);
+    if (sel && normalize(sel.value) === normalize(q.correct)) score1++;
+  });
+
+  // Actividad 3
+  ACTIVIDAD3.forEach((q, i) => {
+    const sel = document.querySelector(`input[name="a3_${i}"]:checked`);
+    if (sel && normalize(sel.value) === normalize(q.correct)) score3++;
+  });
+
+  // Actividad 2 — Memorama
+  const memoScore = matched; // 0 a 12
+  const memoPct = Math.round((matched / MEMO_PAIRS.length) * 100);
+
+  const total = score1 + score3 + memoScore;
+  const max = ACTIVIDAD1.length + ACTIVIDAD3.length + MEMO_PAIRS.length; // 15 + 15 + 12 = 42
+  const pct = Math.round((total / max) * 100);
+
+  let msg = '';
+  if (pct >= 90) msg = '🏆 Outstanding! You integrated everything perfectly.';
+  else if (pct >= 75) msg = '🌟 Great job! Keep practicing.';
+  else if (pct >= 60) msg = '👍 Good. Review past participles and Would.';
+  else msg = '📚 Keep practicing. Repasa las tres sesiones.';
+
+  document.getElementById('scoreBox').innerHTML = `
+    <div class="score-item"><span>🎧 Actividad 1 (Present → Past)</span><span>${score1} / 15</span></div>
+    <div class="score-item"><span>🎴 Actividad 2 (Memorama)</span><span>${memoScore} / 12 (${memoPct}%)</span></div>
+    <div class="score-item"><span>🎧 Actividad 3 (Would ES → EN)</span><span>${score3} / 15</span></div>
+    <div class="score-item"><span>TOTAL</span><span>${total} / ${max} (${pct}%)</span></div>
+    <div class="feedback">${msg}</div>
+  `;
+
+  document.getElementById('mainContent').style.display = 'none';
+  document.getElementById('resultsScreen').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
