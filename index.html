@@ -24,7 +24,6 @@
   h1 { text-align: center; color: #2b6cb0; font-size: 1.8rem; margin-bottom: 8px; }
   .subtitle { text-align: center; color: #718096; font-size: 1rem; margin-bottom: 25px; }
 
-  /* Login */
   #loginScreen { text-align: center; padding: 40px 20px; }
   #loginScreen h2 { color: #2b6cb0; margin-bottom: 15px; }
   #loginScreen p { color: #4a5568; margin-bottom: 20px; }
@@ -50,10 +49,10 @@
   }
   .blogger-notice strong { color: #975a16; }
   .blogger-notice ul { margin: 8px 0 0 20px; }
+  .blogger-notice li { margin-bottom: 4px; }
 
   #mainContent { display: none; }
 
-  /* Tabs */
   .tabs {
     display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;
     border-bottom: 3px solid #e2e8f0; padding-bottom: 10px;
@@ -113,7 +112,6 @@
   .options label:hover { background: #ebf8ff; border-color: #bee3f8; }
   .options input[type="radio"] { accent-color: #2b6cb0; width: 18px; height: 18px; cursor: pointer; }
 
-  /* Memorama */
   .memo-grid {
     display: grid; grid-template-columns: repeat(4, 1fr);
     gap: 12px; margin-top: 15px;
@@ -146,7 +144,6 @@
   }
   .memo-reset:hover { background: #c53030; }
 
-  /* Actividad 4 — dibujos */
   .draw-question {
     background: #ffffff; border-radius: 10px; padding: 16px 18px;
     margin-bottom: 14px; border: 2px dashed #4299e1;
@@ -157,10 +154,8 @@
   .draw-hint {
     background: #ebf8ff; padding: 10px 14px; border-radius: 8px;
     margin-top: 10px; color: #2c5282; font-size: 0.93rem;
-    font-style: italic;
   }
 
-  /* Botones */
   .btn {
     display: inline-block; padding: 12px 35px; font-size: 1rem;
     border: none; border-radius: 10px; cursor: pointer;
@@ -172,7 +167,6 @@
   .btn-success:hover { background: #2f855a; transform: scale(1.02); }
   .btn-center { text-align: center; margin: 25px 0 10px; }
 
-  /* Resultados */
   #resultsScreen { display: none; text-align: center; padding: 30px 20px; }
   #resultsScreen h2 { color: #2b6cb0; margin-bottom: 15px; }
   .score-box {
@@ -197,7 +191,6 @@
 <body>
 <div class="container">
 
-  <!-- ============ PANTALLA DE ACCESO ============ -->
   <div id="loginScreen">
     <h1>🔐 Sesión 3 — Integration</h1>
     <p class="subtitle">Would + Past Participles</p>
@@ -207,16 +200,17 @@
     <p id="loginError">❌ Código incorrecto. Intenta de nuevo.</p>
   </div>
 
-  <!-- ============ CONTENIDO PRINCIPAL ============ -->
   <div id="mainContent">
 
     <div class="blogger-notice">
       📝 <strong>Instrucciones importantes:</strong>
       <ul>
         <li>Contesta este ejercicio en el <strong>blog de Blogger</strong>.</li>
-        <li>Escribe tus respuestas con <strong>tinta azul</strong> en tu cuaderno.</li>
-        <li>En la <strong>Actividad 1</strong>, escribe en tu cuaderno <strong>lo que escuchas</strong> y luego la <strong>respuesta correcta</strong>.</li>
-        <li>En la <strong>Actividad 4</strong>, escucha cada audio y <strong>dibuja</strong> en tu cuaderno lo que entiendas (5 dibujos).</li>
+        <li><strong>Todas las actividades se realizan en tu cuaderno</strong> con <strong>tinta azul</strong>.</li>
+        <li><strong>Actividad 1:</strong> escribe en tu cuaderno <strong>lo que escuchas</strong> y luego la <strong>respuesta correcta</strong>.</li>
+        <li><strong>Actividad 2:</strong> anota en tu cuaderno las <strong>parejas</strong> que vas encontrando (infinitivo ↔ past participle).</li>
+        <li><strong>Actividad 3:</strong> escribe en tu cuaderno la <strong>oración en inglés</strong> que elijas como correcta.</li>
+        <li><strong>Actividad 4:</strong> escucha cada audio y <strong>dibuja</strong> en tu cuaderno lo que entiendas (5 dibujos).</li>
         <li>Al terminar las actividades, presiona <strong>"VER RESULTADOS"</strong>.</li>
       </ul>
     </div>
@@ -224,7 +218,6 @@
     <h1>📘 SESIÓN 3 — INTEGRATION</h1>
     <p class="subtitle">Would · Past Participles · Listening & Drawing</p>
 
-    <!-- TABS -->
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab(1, this)">🎧 Actividad 1</button>
       <button class="tab-btn" onclick="switchTab(2, this)">🎴 Actividad 2 — Memorama</button>
@@ -232,7 +225,7 @@
       <button class="tab-btn" onclick="switchTab(4, this)">🎨 Actividad 4 — Listen & Draw</button>
     </div>
 
-    <!-- ===== ACTIVIDAD 1 ===== -->
+    <!-- ACTIVIDAD 1 -->
     <div id="tab1" class="tab-content active">
       <div class="section-box">
         <h2>🎧 ACTIVIDAD 1 — Listen & Choose the Past</h2>
@@ -244,27 +237,33 @@
       </div>
     </div>
 
-    <!-- ===== ACTIVIDAD 2 ===== -->
+    <!-- ACTIVIDAD 2 -->
     <div id="tab2" class="tab-content">
       <div class="section-box">
         <h2>🎴 ACTIVIDAD 2 — Memorama de Verbos</h2>
         <p class="instruction">Empareja cada <strong>infinitivo</strong> con su <strong>past participle</strong>. Haz clic en dos cartas para encontrar la pareja.</p>
+        <div class="note-box">
+          ✏️ <strong>En tu cuaderno:</strong> anota cada pareja que encuentres (ej. <em>go → gone</em>).
+        </div>
         <div class="memo-grid" id="memoGrid"></div>
         <p class="memo-status" id="memoStatus">Parejas encontradas: 0 / 12</p>
         <button class="memo-reset" onclick="initMemorama()">🔄 Reiniciar memorama</button>
       </div>
     </div>
 
-    <!-- ===== ACTIVIDAD 3 ===== -->
+    <!-- ACTIVIDAD 3 -->
     <div id="tab3" class="tab-content">
       <div class="section-box">
         <h2>🎧 ACTIVIDAD 3 — Listen (Spanish) & Choose the Best Option</h2>
         <p class="instruction">Escucha la oración en <strong>español</strong> con <em>Would</em> y elige la mejor opción en <strong>inglés</strong>. (15 ejercicios)</p>
+        <div class="note-box">
+          ✏️ <strong>En tu cuaderno:</strong> escribe la oración en inglés que elijas como correcta.
+        </div>
         <div id="actividad3"></div>
       </div>
     </div>
 
-    <!-- ===== ACTIVIDAD 4 ===== -->
+    <!-- ACTIVIDAD 4 -->
     <div id="tab4" class="tab-content">
       <div class="section-box">
         <h2>🎨 ACTIVIDAD 4 — Listen & Draw</h2>
@@ -276,14 +275,12 @@
       </div>
     </div>
 
-    <!-- BOTÓN RESULTADOS -->
     <div class="btn-center">
       <button class="btn btn-success" onclick="showResults()">✅ VER RESULTADOS</button>
     </div>
 
   </div>
 
-  <!-- ============ PANTALLA DE RESULTADOS ============ -->
   <div id="resultsScreen">
     <h2>🏆 Resultados — Sesión 3</h2>
     <div class="score-box" id="scoreBox"></div>
@@ -295,9 +292,7 @@
 </div>
 
 <script>
-/* ============================================================
-   CÓDIGO DE ACCESO
-   ============================================================ */
+/* ============ ACCESO ============ */
 const ACCESS_CODE = "4070";
 let attempts = 0;
 
@@ -319,9 +314,7 @@ document.getElementById('accessInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') checkAccess();
 });
 
-/* ============================================================
-   TABS
-   ============================================================ */
+/* ============ TABS ============ */
 function switchTab(num, btn) {
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -329,9 +322,7 @@ function switchTab(num, btn) {
   btn.classList.add('active');
 }
 
-/* ============================================================
-   WEB SPEECH API
-   ============================================================ */
+/* ============ SPEECH ============ */
 function speak(text, btnElement, lang = 'en-US') {
   if (!('speechSynthesis' in window)) {
     alert('Tu navegador no soporta síntesis de voz. Usa Chrome, Edge o Safari.');
@@ -352,9 +343,7 @@ function speak(text, btnElement, lang = 'en-US') {
   window.speechSynthesis.speak(utter);
 }
 
-/* ============================================================
-   ACTIVIDAD 1 — Present (audio) → elegir pasado correcto (4 opciones)
-   ============================================================ */
+/* ============ DATOS ============ */
 const ACTIVIDAD1 = [
   { present: "I eat breakfast at 7:00 every morning.", correct: "I ate breakfast at 7:00 this morning.", wrong: ["I eaten breakfast at 7:00 this morning.", "I eating breakfast at 7:00 this morning.", "I eats breakfast at 7:00 this morning."] },
   { present: "She goes to school by bus.", correct: "She went to school by bus.", wrong: ["She gone to school by bus.", "She going to school by bus.", "She goed to school by bus."] },
@@ -373,9 +362,6 @@ const ACTIVIDAD1 = [
   { present: "I go to the gym every day.", correct: "I went to the gym yesterday.", wrong: ["I gone to the gym yesterday.", "I goed to the gym yesterday.", "I going to the gym yesterday."] }
 ];
 
-/* ============================================================
-   ACTIVIDAD 2 — Memorama (12 pares)
-   ============================================================ */
 const MEMO_PAIRS = [
   { inf: "go", part: "gone" },
   { inf: "eat", part: "eaten" },
@@ -461,9 +447,6 @@ function flipCard(idx) {
   }
 }
 
-/* ============================================================
-   ACTIVIDAD 3 — Español (audio) → elegir mejor opción en inglés
-   ============================================================ */
 const ACTIVIDAD3 = [
   { spanish: "¿Te gustaría ver una película esta noche?", correct: "Would you like to watch a movie tonight?", wrong: ["Would you tell me to watch a movie tonight?", "Would you like watch a movie tonight?", "Would you like watching a movie tonight?"] },
   { spanish: "¿Me dirías cómo llegar a la estación?", correct: "Would you tell me how to get to the station?", wrong: ["Would you like to tell me how to get to the station?", "Would you tell me where the station is going?", "Would you tell how to get to the station?"] },
@@ -482,20 +465,15 @@ const ACTIVIDAD3 = [
   { spanish: "¿Te gustaría ir al cine conmigo?", correct: "Would you like to go to the cinema with me?", wrong: ["Would you tell me to go to the cinema with me?", "Would you like go to the cinema with me?", "Would you like going to the cinema with me?"] }
 ];
 
-/* ============================================================
-   ACTIVIDAD 4 — Listen & Draw (5 audios en past simple)
-   ============================================================ */
 const ACTIVIDAD4 = [
-  { audio: "Yesterday, I played soccer with my friends in the park.", hint: "Un niño jugando fútbol con amigos en el parque." },
-  { audio: "She ate a big pizza last night at the restaurant.", hint: "Una persona comiendo pizza en un restaurante." },
-  { audio: "They went to the beach and swam in the ocean.", hint: "Personas en la playa nadando en el mar." },
-  { audio: "He bought a new red car last week.", hint: "Un auto rojo nuevo." },
-  { audio: "I wrote a letter to my grandmother yesterday.", hint: "Una persona escribiendo una carta." }
+  { audio: "Yesterday, I played soccer with my friends in the park." },
+  { audio: "She ate a big pizza last night at the restaurant." },
+  { audio: "They went to the beach and swam in the ocean." },
+  { audio: "He bought a new red car last week." },
+  { audio: "I wrote a letter to my grandmother yesterday." }
 ];
 
-/* ============================================================
-   RENDERIZADO
-   ============================================================ */
+/* ============ RENDER ============ */
 function renderActividad1() {
   const c = document.getElementById('actividad1');
   c.innerHTML = ACTIVIDAD1.map((q, i) => {
@@ -507,7 +485,7 @@ function renderActividad1() {
           🔊 Escuchar oración (present)
         </button>
         <div class="options">
-          ${options.map((opt, j) => `
+          ${options.map((opt) => `
             <label>
               <input type="radio" name="a1_${i}" value="${opt.replace(/"/g, '&quot;')}">
               ${opt}
@@ -530,7 +508,7 @@ function renderActividad3() {
           🔊 Escuchar oración (español)
         </button>
         <div class="options">
-          ${options.map((opt, j) => `
+          ${options.map((opt) => `
             <label>
               <input type="radio" name="a3_${i}" value="${opt.replace(/"/g, '&quot;')}">
               ${opt}
@@ -551,7 +529,7 @@ function renderActividad4() {
         🔊 Escuchar audio ${i + 1}
       </button>
       <div class="draw-hint">
-        🎨 <strong>Dibuja en tu cuaderno</strong> lo que entiendas. (Pista opcional: ${q.hint})
+        🎨 <strong>Dibuja en tu cuaderno</strong> lo que entiendas.
       </div>
     </div>
   `).join('');
@@ -562,9 +540,7 @@ renderActividad3();
 renderActividad4();
 initMemorama();
 
-/* ============================================================
-   NORMALIZAR
-   ============================================================ */
+/* ============ NORMALIZAR ============ */
 function normalize(str) {
   return (str || '')
     .toLowerCase().trim()
@@ -572,9 +548,7 @@ function normalize(str) {
     .replace(/\s+/g, ' ');
 }
 
-/* ============================================================
-   CALIFICAR Y MOSTRAR RESULTADOS
-   ============================================================ */
+/* ============ RESULTADOS ============ */
 function showResults() {
   let score1 = 0, score3 = 0;
 
